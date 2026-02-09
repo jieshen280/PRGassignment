@@ -46,8 +46,6 @@ while (true)
     Console.WriteLine("5. Modify an existing order");
     Console.WriteLine("6. Delete an existing order");
     Console.WriteLine("7. Process unspecified orders (Advanced)");
-    Console.WriteLine("8. Display total order amounts (Advanced)");
-    Console.WriteLine("9. Send Customer Notifications (Bonus)");
     Console.WriteLine("0. Exit");
     Console.Write("Enter your choice: ");
     
@@ -903,100 +901,3 @@ void BulkProcessOrders()
 }
 
 
-// Advanced Feature (b)
-void DisplayTotalReceipts()
-{
-    Console.WriteLine("\nTotal Order Amounts per Restaurant");
-    Console.WriteLine("==================================");
-    Console.WriteLine("{0,-20} {1,-20} {2,-20}", "Restaurant", "Total Order Amt", "Total Refunds");
-    Console.WriteLine("---------------------------------------------------------------");
-
-    double grandTotalSales = 0; // Total sales after fee deduction
-    double grandTotalRefunds = 0;
-    double gruberooEarnings = 0; // Total delivery fees collected
-
-    foreach(var r in restaurantList)
-    {
-        double rSales = 0;
-        double rRefunds = 0;
-
-        foreach(var o in allOrders)
-        {
-            // Check if order belongs to this restaurant
-            bool belongs = false;
-            // Robust check using map
-            if (orderRestaurantMap.ContainsKey(o.OrderID) && orderRestaurantMap[o.OrderID] == r.RestaurantID) belongs = true;
-            
-            if (belongs)
-            {
-                if (o.OrderStatus == "Delivered")
-                {
-                    // "compute and display total order amount (less delivery fee per order)"
-                    // Assumption: Delivery fee is fixed at $5.00
-                    double orderAmountLessFee = o.OrderTotal - 5.00;
-                    rSales += orderAmountLessFee;
-                    gruberooEarnings += 5.00; 
-                }
-                else if (o.OrderStatus == "Rejected" || o.OrderStatus == "Cancelled")
-                {
-                    rRefunds += o.OrderTotal; // Full refund including fee
-                }
-            }
-        }
-        
-        Console.WriteLine("{0,-20} {1,-20:C2} {2,-20:C2}", r.Name, rSales, rRefunds);
-        grandTotalSales += rSales;
-        grandTotalRefunds += rRefunds;
-    }
-    
-    Console.WriteLine("---------------------------------------------------------------");
-    Console.WriteLine("Summary:");
-    Console.WriteLine($"Total Order Amount (Restaurants): {grandTotalSales:C2}");
-    Console.WriteLine($"Total Refunds: {grandTotalRefunds:C2}");
-    Console.WriteLine($"Final Amount Gruberoo Earns (Delivery Fees): {gruberooEarnings:C2}");
-}
-
-// Bonus Feature (c)
-void SendCustomerNotifications()
-{
-    Console.WriteLine("\nSending Customer Notifications...");
-    Console.WriteLine("===============================");
-    
-    int notificationCount = 0;
-    
-    // Sort all orders by time to make output logical? Not strictly necessary but nice.
-    // Let's just iterate allOrders.
-    
-    foreach(var o in allOrders)
-    {
-        // Get Customer Email for notification
-        Customer? c = customerList.Find(x => x.OrderHistory.Exists(oh => oh.OrderID == o.OrderID));
-        string email = c != null ? c.Email : "Unknown";
-        
-        // Simulating Notification Logic
-        if (o.OrderStatus == "Preparing")
-        {
-            // Simulate: Order is being prepared
-            Console.WriteLine($"[To: {email}] Order {o.OrderID} is currently being prepared. Estimated delivery: {o.DeliveryDateTime:dd/MM HH:mm}");
-            notificationCount++;
-        }
-        else if (o.OrderStatus == "Delivered")
-        {
-            // Simulate: Order delivered, ask for rating
-            Console.WriteLine($"[To: {email}] Order {o.OrderID} has been delivered. Please rate your experience!");
-             notificationCount++;
-        }
-        else if (o.OrderStatus == "Pending")
-        {
-            // Maybe notify if delivery is soon?
-            double hoursUntil = (o.DeliveryDateTime - DateTime.Now).TotalHours;
-            if (hoursUntil > 0 && hoursUntil < 24)
-            {
-                Console.WriteLine($"[To: {email}] Order {o.OrderID} is pending processing for delivery tomorrow/today.");
-                notificationCount++;
-            }
-        }
-    }
-    
-    Console.WriteLine($"\nTotal notifications sent: {notificationCount}");
-}
