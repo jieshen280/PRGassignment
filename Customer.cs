@@ -1,4 +1,4 @@
-//==========================================================
+    //==========================================================
 // Student Number : S10275159
 // Student Name : Aw Chong Boon
 // Partner Name : Yip Jie Shen
@@ -14,6 +14,13 @@ namespace S10275159_PRG2Assignment
         private string name;
         private string email;
         private List<Order> orderHistory = new List<Order>();
+        private List<FavouriteOrder> favouriteOrders = new List<FavouriteOrder>();
+
+        public List<FavouriteOrder> FavouriteOrders
+        {
+            get { return favouriteOrders; }
+            set { favouriteOrders = value; }
+        }
 
         public string Name
         {
