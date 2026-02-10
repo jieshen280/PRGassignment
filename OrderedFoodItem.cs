@@ -53,6 +53,5 @@ namespace S10275159_PRG2Assignment
              string cust = string.IsNullOrEmpty(Customise) ? "" : $" [{Customise}]";
              return $"{base.ItemName}{cust} - {QtyOrdered}";
         }
-
     }
 }
