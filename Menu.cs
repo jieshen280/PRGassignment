@@ -11,9 +11,9 @@ namespace S10275159_PRG2Assignment
 {
     public class Menu
     {
-        private string menuID = "";
-        private string menuName = "";
-        private List<FoodItem> foodItems = new List<FoodItem>();
+        private string menuID;
+        private string menuName;
+        private List<FoodItem> foodItems;
 
         public string MenuID
         {
@@ -35,14 +35,16 @@ namespace S10275159_PRG2Assignment
 
         public Menu() 
         { 
+            foodItems = new List<FoodItem>();
             menuID = "";
             menuName = "";
         }
 
         public Menu(string id, string name)
         {
-            MenuID = id;
-            MenuName = name;
+            menuID = id;
+            menuName = name;
+            foodItems = new List<FoodItem>();
         }
 
         public void AddFoodItem(FoodItem item)

@@ -10,10 +10,10 @@ namespace S10275159_PRG2Assignment
 {
     public class FoodItem
     {
-        private string itemName = "";
-        private string description = "";
+        private string itemName;
+        private string description;
         private double price;
-        private string customise = "";
+        private string customise;
 
         public string ItemName
         {
@@ -46,7 +46,7 @@ namespace S10275159_PRG2Assignment
             customise = "";
         }
 
-        public FoodItem(string itemName, string description, double price)
+        public FoodItem(string itemName, string description, double price) : this()
         {
             ItemName = itemName;
             Description = description;

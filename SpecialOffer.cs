@@ -10,8 +10,8 @@ namespace S10275159_PRG2Assignment
 {
     public class SpecialOffer
     {
-        private string offerCode = "";
-        private string offerDesc = "";
+        private string offerCode;
+        private string offerDesc;
         private double discount = 0;
 
         public string OfferCode
@@ -40,14 +40,14 @@ namespace S10275159_PRG2Assignment
 
         public SpecialOffer(string code, string desc, double discount)
         {
-            OfferCode = code;
-            OfferDesc = desc;
-            Discount = discount;
+            offerCode = code;
+            offerDesc = desc;
+            this.discount = discount;
         }
 
         public override string ToString()
         {
-            return $"{OfferCode}: {OfferDesc} ({Discount:P})";
+                return $"{OfferCode}: {OfferDesc} ({Discount}%)";
         }
     }
 }

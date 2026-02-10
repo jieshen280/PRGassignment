@@ -12,12 +12,12 @@ namespace S10275159_PRG2Assignment
     public class Order
     {
         private int orderID;
-        private DateTime orderDateTime = DateTime.Now; 
+        private DateTime orderDateTime; 
         private double orderTotal; // Was Amount
-        private string orderStatus = "Pending"; // Was Status
+        private string orderStatus; // Was Status
         private DateTime deliveryDateTime;
-        private string deliveryAddress = "";
-        private string orderPaymentMethod = "";
+        private string deliveryAddress;
+        private string orderPaymentMethod;
         private bool orderPaid;
 
         private List<OrderedFoodItem> orderItems = new List<OrderedFoodItem>();
@@ -86,12 +86,12 @@ namespace S10275159_PRG2Assignment
 
         public Order(int orderId, DateTime deliveryDateTime)
         {
-            OrderID = orderId;
+            orderID = orderId;
             DeliveryDateTime = deliveryDateTime;
-            OrderStatus = "Pending";
-            DeliveryAddress = "";
-            OrderPaymentMethod = "";
-            OrderDateTime = DateTime.Now;
+            orderStatus = "Pending";
+            deliveryAddress = "";
+            orderPaymentMethod = "";
+            orderDateTime = DateTime.Now;
         }
 
         public double CalculateOrderTotal()

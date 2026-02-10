@@ -11,11 +11,12 @@ namespace S10275159_PRG2Assignment
 {
     public class Restaurant
     {
-        private string name = "";
-        private string email = "";
-        private string restaurantID = "";
+        private string name;
+        private string email;
+        private string restaurantID;
         private Menu menu = new Menu(); // Keep object init
         private Queue<Order> orderQueue = new Queue<Order>();
+        private List<SpecialOffer> specialOffers = new List<SpecialOffer>();
 
         public string Name
         {
@@ -47,6 +48,12 @@ namespace S10275159_PRG2Assignment
             set { orderQueue = value; }
         }
 
+        public List<SpecialOffer> SpecialOffers
+        {
+            get { return specialOffers; }
+            set { specialOffers = value; }
+        }
+
         public Restaurant()
         {
             name = "";
@@ -76,8 +83,20 @@ namespace S10275159_PRG2Assignment
 
         public void DisplaySpecialOffers()
         {
-            // Not implemented yet, stubs
-            Console.WriteLine("No special offers.");
+            if (specialOffers.Count == 0)
+            {
+                Console.WriteLine("No special offers available.");
+            }
+            else
+            {
+                Console.WriteLine($"Special Offers for {Name}:");
+                int i = 1;
+                foreach(var offer in specialOffers)
+                {
+                    Console.WriteLine($"{i}. {offer}");
+                    i++;
+                }
+            }
         }
 
         public void DisplayMenu()

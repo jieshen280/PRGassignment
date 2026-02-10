@@ -11,8 +11,8 @@ namespace S10275159_PRG2Assignment
 {
     public class Customer
     {
-        private string name = "";
-        private string email = "";
+        private string name;
+        private string email;
         private List<Order> orderHistory = new List<Order>();
 
         public string Name
@@ -39,7 +39,7 @@ namespace S10275159_PRG2Assignment
             email = "";
         }
 
-        public Customer(string name, string email)
+        public Customer(string name, string email) : this()
         {
             Name = name;
             Email = email;
